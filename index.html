@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>LFA - Regex Validator</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="main-div">
+            <table>
+                <tr>
+                    <td><p>Digite uma expressão regular: </p></td>
+                    <td><input id="regex" type="text" name="regex"><br /></td>
+                </tr>
+                <tr>
+                    <td><p>Texto 1: </p></td>
+                    <td><input class="input" id="input1" type="text" name="input1">
+                        <img id="verification-icon1" src="src/img/certo.png" height="25px" width="25px"/><br /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Texto 2: </p>
+                    </td>
+                    <td><input class="input" id="input2" type="text" name="input2">
+                        <img id="verification-icon2" src="src/img/certo.png" height="25px" width="25px" /><br /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="submit" type="button" name="submit">Verificar</button><br /></td>
+                </tr>
+            </table>     
+        </div>
+        <script src="jquery-3.4.1.min.js"></script>
+        <script src="regex.js"></script>
+        
+    </body>
+</html>
