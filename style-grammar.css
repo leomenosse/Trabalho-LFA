@@ -1,0 +1,44 @@
+#container {
+    width: 700px;
+    height: auto;
+    margin: auto;
+    border-style: inset;
+    border-radius: 50px;
+}
+
+#tabela {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    margin: 10px auto auto auto;
+}
+
+#btnAdicionar {
+    margin-top: 40px;
+    margin-bottom: 15px;
+    margin-left: 255px;
+    padding: 7px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+}
+
+.btnSalvar {
+    cursor: pointer;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+.btnExcluir {
+    cursor: pointer;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+.btnEditar {
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.imgSeta {
+    margin: 10px 25px 10px 10px; /* margin: top right bottom left; */
+}
