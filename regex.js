@@ -5,7 +5,7 @@ $(document).ready(function () {
     $(".input").val('');
     $(".input").css("background-color", greenColor);
 
-    $("#submit").click(function () {
+    $(".input").keyup(function () {
         let regex = new RegExp($("#regex").val());
 
         if (regex.test($('#input1').val())) {
