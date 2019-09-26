@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>LFA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
     <!-- Add vis.js library -->
     <script type="text/javascript" src="https://unpkg.com/vis-network@latest/dist/vis-network.min.js"></script>
     <link href="https://unpkg.com/vis-network@latest/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
@@ -26,12 +29,12 @@
             font-size: 16px;
             cursor: pointer;
         }
-
         /* Darker background on mouse-over */
+        
         .btn:hover {
             background-color: RoyalBlue;
         }
-
+        
         #mynetwork {
             width: 1200px;
             height: 500px;
@@ -39,39 +42,22 @@
         }
     </style>
 </head>
+
 <body>
     <div id="allbuttons">
-        <!--
-        <button id="mouse" class="btn"><i class="fa fa-mouse-pointer"></i></button>
-        <button id="transicao" class="btn"><i class="fa fa-exchange"></i></button>
-        <button id="adicionar" class="btn"><i class="fa fa-plus"></i></button>
-        <button id="deletar" class="btn"><i class="fa fa-trash"></i></button>
-        -->
         <button id="desfazer" class="btn"><i class="fa fa-arrow-left"></i></button>
         <button id="refazer" class="btn"><i class="fa fa-arrow-right"></i></button>
-        <button id="fisica" class="btn"><i class="fa fa-trash"></i></button>
+        <button id="fisica" class="btn"><i class="fas fa-atom"></i></button>
     </div>
 
     <div id="mynetwork"></div>
 
     <script type="text/javascript">
         // create an array with nodes
-        var nodes = new vis.DataSet([/*
-            {id: 1, label: 'Node 1'},
-            {id: 2, label: 'Node 2'},
-            {id: 3, label: 'Node 3'},
-            {id: 4, label: 'Node 4'},
-            {id: 5, label: 'Node 5'}*/
-        ]);
-        
+        var nodes = new vis.DataSet();
+
         // create an array with edges
-        var edges = new vis.DataSet([/*
-            {from: 1, to: 3, arrows:'to'},
-            {from: 1, to: 2},
-            {from: 2, to: 4},
-            {from: 2, to: 5, arrows:'to'},
-            {from: 3, to: 3, arrows:'to'}*/
-        ]);
+        var edges = new vis.DataSet();
 
         // create a network
         var container = document.getElementById('mynetwork');
@@ -83,14 +69,14 @@
         var cont = 0;
         var filaCont = [];
         const proxCont = () => {
-            if(filaCont.length > 0) {
+            if (filaCont.length > 0) {
                 return filaCont.shift();
             } else {
                 return cont++;
             }
         }
 
-        function deleteNode(data,callback) {
+        function deleteNode(data, callback) {
             filaCont.push(data.nodes[0]);
             filaCont.sort();
             callback(data);
@@ -110,9 +96,9 @@
             edges: {
                 arrows: 'to',
                 smooth: {
-                    enabled: true
-                    //type: "continuous",
-                    //roundness: 0.5
+                    enabled: true,
+                    type: "continuous",
+                    roundness: 0.5
                 },
                 font: {
                     align: "top"
@@ -129,13 +115,13 @@
                 }
             },
             manipulation: {
-                addNode: function(data,callback) {
+                addNode: function(data, callback) {
                     let aux = proxCont();
                     data.id = aux;
                     data.label = "q" + aux;
                     callback(data);
                 },
-                editNode: function(data,callback) {
+                editNode: function(data, callback) {
                     let aux = prompt("Digite 'Inicial' ou 'Final' para esse estado selecionado:", "");
                     if (aux === "Inicial") {
                         data.color = {
@@ -151,11 +137,11 @@
                     callback(data);
                 },
                 deleteNode: deleteNode,
-                addEdge: function(data,callback) {
+                addEdge: function(data, callback) {
                     data.label = prompt("Digite o valor da transição:", "");
                     callback(data);
                 },
-                editEdge: function(data,callback) {
+                editEdge: function(data, callback) {
                     if (confirm("Deseja mudar o valor da transição?") === true) {
                         data.label = prompt("Digite o valor da transição:", "");
                     }
@@ -181,50 +167,12 @@
         });
 
         var isPhysicsEnabled = true;
-        $('#fisica').click(function () {
+        $('#fisica').click(function() {
             isPhysicsEnabled = !isPhysicsEnabled;
             network.setOptions({
                 physics: isPhysicsEnabled
             });
         });
-        
-        /*
-        // função deletar
-        $('#deletar').click(function() {
-            network.off('click');
-		    network.on('click', function(params) {
-                params.nodes.forEach(function(nodeId) {
-                    nodes.remove({id: nodeId});
-                })
-            });
-
-            $('#mouse').click(function() {
-                network.off('click');
-            });
-	    });
-
-        // função adicionar
-        let NUM = 0;
-        $('#adicionar').click(function() {
-            network.off('click');
-		    network.on('click', function() {
-                data.nodes.add({
-                    id: NUM,
-                    label: "q" + NUM
-                });
-                NUM = NUM + 1;
-            });
-
-            $('#mouse').click(function() {
-                network.off('click');
-            });
-	    });
-
-        $('#transicao').click(function() {
-            network.off('click');
-            network.addEdgeMode();
-        });
-        */
 
         ////////////////////////////////////////
         // undo/redo functions
@@ -261,6 +209,7 @@
                 cursor: "pointer"
             });
         };
+
         function undo_css_active() {
             $("#refazer").css({
                 "background-color": "DodgerBlue",
@@ -276,6 +225,7 @@
                 cursor: "inherit"
             });
         };
+
         function undo_css_inactive() {
             $("#refazer").css({
                 "background-color": "inherit",
@@ -349,10 +299,10 @@
 
         $("#refazer").on("click", function() {
             if (history_list_forward.length > 0) {
-                const current_nodes = data.nodes.get(data.nodes.getIds()); 
+                const current_nodes = data.nodes.get(data.nodes.getIds());
                 const current_edges = data.edges.get(data.edges.getIds());
-                const forward_nodes = history_list_forward[0].nodes_his; 
-                const forward_edges = history_list_forward[0].edges_his; 
+                const forward_nodes = history_list_forward[0].nodes_his;
+                const forward_edges = history_list_forward[0].edges_his;
                 // event off
                 data.nodes.off("*", change_history_back);
                 data.edges.off("*", change_history_back);
@@ -392,4 +342,5 @@
         });
     </script>
 </body>
+
 </html>
