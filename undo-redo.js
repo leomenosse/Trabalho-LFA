@@ -33,6 +33,7 @@ function redo_css_active() {
         cursor: "pointer"
     });
 };
+
 function undo_css_active() {
     $("#refazer").css({
         "background-color": "DodgerBlue",
@@ -48,6 +49,7 @@ function redo_css_inactive() {
         cursor: "inherit"
     });
 };
+
 function undo_css_inactive() {
     $("#refazer").css({
         "background-color": "inherit",
