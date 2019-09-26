@@ -138,7 +138,20 @@
                 },
                 deleteNode: deleteNode,
                 addEdge: function(data, callback) {
-                    data.label = prompt("Digite o valor da transição:", "");
+                    var dupe = edges.get({
+                        filter: (item) => {
+                            return (item.from == data.from && item.to == data.to && item.id != data.id);
+                        }
+                    })
+
+                    if (dupe == null) {
+                        data.label = prompt("Digite o valor da transição:", "");
+                    } else {
+                        data.hidden = true;
+
+                    }
+
+                    //data.label = prompt("Digite o valor da transição:", "");
                     callback(data);
                 },
                 editEdge: function(data, callback) {
